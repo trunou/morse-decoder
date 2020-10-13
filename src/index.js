@@ -35,10 +35,34 @@ const MORSE_TABLE = {
     '---..':  '8',
     '----.':  '9',
     '-----':  '0',
+    '=': ' ',
 };
 
 function decode(expr) {
-    // write your solution here
+    var arr = [];
+    let morseString = '';
+    for(let i = 0; i<expr.length; i+=10){
+    arr.push(expr.slice(i, i+10));
+    }
+    console.log(arr);
+    for(let i = 0; i<arr.length; i++){
+      let symbol = arr[i]
+      let temp = '';
+      if(symbol === '**********'){
+        temp += '='
+      } else {
+        for(let j = 0; j<symbol.length; j+=2){
+          if(`${symbol[j]}${symbol[j+1]}` === '10'){
+            temp+='.';
+          } else if(`${symbol[j]}${symbol[j+1]}` === '11'){
+            temp+='-';
+          }
+        }
+      }
+      morseString += temp + ',';  
+    }
+    var morseArr = morseString.split(',').map(letter => MORSE_TABLE[letter]).join('');
+    return morseArr;
 }
 
 module.exports = {
